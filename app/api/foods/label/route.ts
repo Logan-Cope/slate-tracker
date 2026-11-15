@@ -17,8 +17,8 @@ export async function POST(req: Request) {
 
   const declared = Number(req.headers.get("content-length") ?? "0");
   if (declared > MAX_PHOTO_BYTES) return NextResponse.json({ error: "That photo is too large." }, { status: 413 });
-  const bytes = new Uint8Array(await req.arrayBuffer());
-  if (bytes.length > MAX_PHOTO_BYTES) return NextResponse.json({ error: "That photo is too large." }, { status: 413 });
+  const bytes = await readCapped(req, MAX_PHOTO_BYTES);
+  if (!bytes) return NextResponse.json({ error: "That photo is too large." }, { status: 413 });
   const mediaType = sniffPhotoType(bytes);
   if (!mediaType) return NextResponse.json({ error: "That file is not a photo." }, { status: 415 });
 
@@ -31,4 +31,29 @@ export async function POST(req: Request) {
   if (result.ok) return NextResponse.json({ draft: result.draft });
   if (result.reason === "unreadable") return NextResponse.json({ error: "Could not read the label." }, { status: 422 });
   return NextResponse.json({ error: "Could not read the label right now. Try again." }, { status: 502 });
+}
+
+/** The body, or null as soon as it passes `cap` bytes: a missing or false Content-Length cannot make the server buffer more. */
+async function readCapped(req: Request, cap: number): Promise<Uint8Array | null> {
+  if (!req.body) return new Uint8Array();
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > cap) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  const out = new Uint8Array(total);
+  let at = 0;
+  for (const c of chunks) {
+    out.set(c, at);
+    at += c.byteLength;
+  }
+  return out;
 }

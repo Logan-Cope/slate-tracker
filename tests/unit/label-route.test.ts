@@ -54,6 +54,24 @@ describe("POST /api/foods/label", () => {
     expect(reader).not.toHaveBeenCalled();
   });
 
+  it("stops reading a body with no Content-Length once it passes the cap", async () => {
+    let pulled = 0;
+    const chunk = new Uint8Array(256 * 1024);
+    chunk.set(JPEG);
+    const body = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulled += chunk.byteLength;
+        controller.enqueue(chunk);
+      },
+    });
+    const req = new Request("https://app.test/api/foods/label", { method: "POST", body, duplex: "half" } as RequestInit);
+    expect(req.headers.get("content-length")).toBeNull();
+    const res = await POST(req);
+    expect(res.status).toBe(413);
+    expect(pulled).toBeLessThanOrEqual(MAX_PHOTO_BYTES + 2 * chunk.byteLength);
+    expect(reader).not.toHaveBeenCalled();
+  });
+
   it("refuses an empty or oversized photo", async () => {
     expect((await post(new Uint8Array())).status).toBe(415);
     const big = new Uint8Array(MAX_PHOTO_BYTES + 1);
