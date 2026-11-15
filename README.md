@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Logan-Cope/slate-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/Logan-Cope/slate-tracker/actions/workflows/ci.yml)
 
-Food, lifts and body weight in one phone app. Calories and protein come first, the workout logger follows the program a coach writes, and the weight trend ignores day-to-day water noise. Snap a nutrition label and Claude fills in the food; that reader shipped only after an eval with a bar of zero wrong calories passed.
+Food, lifts and body weight in one phone app. Calories and protein come first, the workout logger follows the program a coach writes, and the weight trend ignores day-to-day water noise. Snap a nutrition label and Claude fills in the food; that reader is held to an eval, written before it, whose bar is zero wrong calories.
 
 **[Try the demo](https://slate-tracker-demo.vercel.app)**: tap Avery for the athlete's view or Morgan for the coach's. Everything in it is invented, it needs no account, and it resets itself.
 
