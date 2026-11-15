@@ -5,6 +5,7 @@
  *   npm run eval:labels                                   the shipped models and effort (LABEL_MODELS, LABEL_EFFORT)
  *   npm run eval:labels -- --models claude-sonnet-5-5     one model, no backup
  *   npm run eval:labels -- --effort low --only granola    effort level, entries whose id contains a substring
+ *   npm run eval:labels -- --write                        also writes evals/RESULTS.md, the table the README links
  *
  * Needs ANTHROPIC_API_KEY (from .env.local or the environment) and costs well under a cent per run on Haiku.
  * PASS needs: no calories filled in wrong, at least 98% of number fields exact, at least 90% of labels
@@ -92,6 +93,37 @@ Labels ${sum.labels}, non-labels ${sum.negatives}
   Backup model used       ${fallbacks}
   Cost                    $${cost.toFixed(4)} total, $${(cost / Math.max(1, results.length)).toFixed(5)} per photo
 ${sum.pass && quantile(times, 0.5) <= 6000 ? "PASS" : "FAIL"}`);
+
+  if (process.argv.includes("--write")) {
+    const verdict = sum.pass && quantile(times, 0.5) <= 6000 ? "PASS" : "FAIL";
+    const rows = results.map(({ entry, result, ms }, i) => {
+      const s = scores[i]!;
+      const outcome = entry.kind === "negative" ? (s.rejected ? "refused, as it should" : "accepted a non-label") : s.fullyCorrect ? "every field right" : s.missed ? "refused a real label" : `wrong: ${s.wrong.join(", ")}`;
+      return `| ${entry.id} | ${entry.kind} | ${outcome} | ${result.model} | ${(ms / 1000).toFixed(1)} s |`;
+    });
+    const md = [
+      "# Label eval results",
+      "",
+      `Written by \`npm run eval:labels -- --write\` on ${new Date().toISOString().slice(0, 10)}: ${models.join(" then ")}, effort ${effort}, ${results.length} photos from evals/label-golden.json.`,
+      "",
+      "| Measure | Result | Bar |",
+      "|---|---|---|",
+      `| Number fields exact | ${pct(sum.numericAccuracy)} | 98% |`,
+      `| Labels with every field right | ${pct(sum.fullyCorrectRate)} | 90% |`,
+      `| Wrong calories filled in | ${sum.silentKcalErrors} | 0 |`,
+      `| Non-labels refused | ${sum.negativesRejected} of ${sum.negatives} | all |`,
+      `| Latency p50 / p90 | ${(quantile(times, 0.5) / 1000).toFixed(1)} s / ${(quantile(times, 0.9) / 1000).toFixed(1)} s | p50 6 s |`,
+      `| Cost | $${cost.toFixed(4)} total | |`,
+      `| Verdict | ${verdict} | |`,
+      "",
+      "| Photo | Kind | Outcome | Model | Time |",
+      "|---|---|---|---|---|",
+      ...rows,
+      "",
+    ].join("\n");
+    writeFileSync("evals/RESULTS.md", md);
+    console.log("Wrote evals/RESULTS.md");
+  }
 
   mkdirSync(".data/label-eval", { recursive: true });
   const out = `.data/label-eval/${new Date().toISOString().replace(/[:.]/g, "-")}-${models.join("+")}-${effort}.json`;
