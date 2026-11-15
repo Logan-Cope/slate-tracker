@@ -5,7 +5,8 @@
   "scripts": {
     "predev": "node scripts/copy-wasm.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/copy-wasm.mjs",
+    "demo": "node scripts/copy-wasm.mjs && DEMO_MODE=1 PGLITE_DIR=.data/pglite-demo next dev",
+    "prebuild": "node scripts/copy-wasm.mjs && node --import tsx scripts/make-demo-snapshot.mts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

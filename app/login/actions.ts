@@ -21,6 +21,11 @@ export async function loginWithPassphrase(_prev: LoginState, formData: FormData)
   }
 }
 
+export async function loginAsDemoUser(formData: FormData): Promise<void> {
+  const handle = String(formData.get("handle") ?? "");
+  await signIn("demo", { handle, redirectTo: handle === "morgan" ? "/coach" : "/today" });
+}
+
 export async function loginWithGoogle(): Promise<void> {
   await signIn("google", { redirectTo: "/today" });
 }

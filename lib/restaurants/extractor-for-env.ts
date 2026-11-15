@@ -1,8 +1,9 @@
 /**
- * Picks the menu extractor for the running environment. Under E2E=1 a fixed
- * Chipotle menu stands in for the Claude call so Playwright never touches the
- * network; otherwise the real extractor is used.
+ * Picks the menu extractor for the running environment. Under E2E=1, and in
+ * demo mode without an API key, a fixed menu stands in for the Claude call so
+ * nothing touches the network; otherwise the real extractor is used.
  */
+import { isDemo } from "@/lib/demo/mode";
 import { createClaudeExtractor, createFakeExtractor, type Extractor } from "./extract";
 import type { ExtractedMenu } from "./validate";
 
@@ -19,6 +20,6 @@ export const FAKE_MENU: ExtractedMenu = {
 };
 
 export function getExtractor(): Extractor {
-  if (process.env.E2E === "1") return createFakeExtractor(FAKE_MENU);
+  if (process.env.E2E === "1" || (isDemo() && !process.env.ANTHROPIC_API_KEY)) return createFakeExtractor(FAKE_MENU);
   return createClaudeExtractor();
 }

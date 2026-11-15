@@ -1,0 +1,6 @@
+.data
+data/*.zip
+test-results
+playwright-report
+evals/labels
+docs/images

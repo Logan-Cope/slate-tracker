@@ -13,6 +13,7 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { createUserFromGoogle, findUserByEmail, findUserByHandle } from "@/lib/db/queries/users";
+import { isDemo } from "@/lib/demo/mode";
 
 const YEAR = 60 * 60 * 24 * 365;
 const DAY = 60 * 60 * 24;
@@ -76,19 +77,39 @@ const providers: NextAuthConfig["providers"] = [
   }),
 ];
 
+// Demo mode: one tap signs in as a seeded user, no passphrase. Never registered outside DEMO_MODE=1.
+if (isDemo()) {
+  providers.push(
+    Credentials({
+      id: "demo",
+      name: "Demo",
+      credentials: { handle: {} },
+      async authorize(credentials) {
+        const handle = typeof credentials.handle === "string" ? credentials.handle : "";
+        const user = handle ? await findUserByHandle(handle) : null;
+        if (!user) return null;
+        return { id: String(user.id), name: user.name, email: user.email ?? undefined, role: user.role, defaultProfileId: user.defaultProfileId };
+      },
+    }),
+  );
+}
+
 if (googleEnabled()) {
   providers.push(Google({ allowDangerousEmailAccountLinking: false }));
 }
 
 export const authConfig: NextAuthConfig = {
   providers,
+  // `npm run demo` works with no .env.local: a local demo signs its session cookies with a fixed,
+  // public value. A deployed demo (production build) still needs AUTH_SECRET.
+  secret: process.env.AUTH_SECRET ?? (isDemo() && process.env.NODE_ENV !== "production" ? "local-demo-only" : undefined),
   trustHost: true,
   session: { strategy: "jwt", maxAge: YEAR, updateAge: DAY },
   pages: { signIn: "/login" },
   callbacks: {
     async signIn({ account, profile }) {
-      // Passphrase sign-ins were already validated in authorize().
-      if (account?.provider === "passphrase") return true;
+      // Passphrase and demo sign-ins were already validated in authorize().
+      if (account?.provider === "passphrase" || account?.provider === "demo") return true;
       if (account?.provider === "google") {
         const email = profile?.email?.toLowerCase();
         // Google must have verified the address, and it must be on our list.

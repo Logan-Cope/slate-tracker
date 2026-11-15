@@ -12,6 +12,7 @@ import { drizzle as drizzleNeon } from "drizzle-orm/neon-http";
 import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
 import { neon } from "@neondatabase/serverless";
+import { AsyncLocalStorage } from "node:async_hooks";
 import * as schema from "./schema";
 
 /**
@@ -20,9 +21,17 @@ import * as schema from "./schema";
  */
 export type Database = PgDatabase<PgQueryResultHKT, typeof schema>;
 
-type Cache = { db?: Database; pglite?: import("@electric-sql/pglite").PGlite };
+type Cache = { db?: Database; pglite?: import("@electric-sql/pglite").PGlite; opening?: Promise<Database>; settling?: boolean };
 const g = globalThis as unknown as { __slateDb?: Cache };
 const cache: Cache = (g.__slateDb ??= {});
+
+/**
+ * Set while the embedded database migrates and seeds itself. The seed writes
+ * through the same query functions as the app, which call getDb(); inside this
+ * context they get the handle at once, while a request that arrives meanwhile
+ * waits for the setup to finish.
+ */
+const settingUp = new AsyncLocalStorage<true>();
 
 export function isPglite(): boolean {
   return !process.env.DATABASE_URL;
@@ -30,8 +39,15 @@ export function isPglite(): boolean {
 
 /** Returns the shared database handle, creating it on first use. */
 export async function getDb(): Promise<Database> {
-  if (cache.db) return cache.db;
+  if (cache.db && (!cache.settling || settingUp.getStore())) return cache.db;
+  return (cache.opening ??= openDb().catch((err: unknown) => {
+    cache.opening = undefined;
+    cache.db = undefined;
+    throw err;
+  }));
+}
 
+async function openDb(): Promise<Database> {
   const url = process.env.DATABASE_URL;
   if (url) {
     cache.db = drizzleNeon(neon(url), { schema });
@@ -42,24 +58,42 @@ export async function getDb(): Promise<Database> {
   const { PGlite } = await import("@electric-sql/pglite");
   const { pg_trgm } = await import("@electric-sql/pglite/contrib/pg_trgm");
   const dir = process.env.PGLITE_DIR ?? ".data/pglite";
-  // ":memory:" is used by unit tests for a throwaway database.
+  // ":memory:" is a throwaway database: unit tests, and the hosted demo (DEMO_MODE=1).
   const memory = dir === ":memory:";
+  const demo = process.env.DEMO_MODE === "1";
   if (!memory) {
     // PGlite expects the parent directory to exist.
     const { mkdirSync } = await import("node:fs");
     mkdirSync(dir, { recursive: true });
   }
+  // The hosted demo starts from the snapshot made at build time, when there is one.
+  const snapshot = demo && memory && process.env.PGLITE_AUTO_SETUP !== "0" ? (await import("@/lib/demo/snapshot")).readSnapshot() : null;
   const pglite = await PGlite.create(memory ? undefined : dir, {
     extensions: { pg_trgm },
+    ...(snapshot ? { loadDataDir: snapshot.data } : {}),
   });
   cache.pglite = pglite;
   const db = drizzlePglite(pglite, { schema });
-  if (!memory && process.env.PGLITE_AUTO_SETUP !== "0") {
-    // Fresh clone or e2e run: bring the embedded database up by itself.
-    await ensureLocalSchema(db);
-  }
   cache.db = db;
-  return cache.db;
+  if (snapshot) {
+    const { daysBetween, shiftAllDates } = await import("@/lib/demo/snapshot");
+    const { todayLocal } = await import("@/lib/utils/date");
+    cache.settling = true;
+    try {
+      await settingUp.run(true, () => shiftAllDates(db, daysBetween(snapshot.meta.today, todayLocal())));
+    } finally {
+      cache.settling = false;
+    }
+  } else if ((!memory || demo) && process.env.PGLITE_AUTO_SETUP !== "0") {
+    // Fresh clone, demo or e2e run: bring the embedded database up by itself.
+    cache.settling = true;
+    try {
+      await settingUp.run(true, () => ensureLocalSchema(db));
+    } finally {
+      cache.settling = false;
+    }
+  }
+  return db;
 }
 
 async function ensureLocalSchema(db: Database): Promise<void> {
@@ -74,6 +108,9 @@ async function ensureLocalSchema(db: Database): Promise<void> {
     if (process.env.E2E === "1") {
       await seedTestFoods(db);
       await seedTestProfiles(db);
+    } else if (process.env.DEMO_MODE === "1") {
+      const { seedDemo } = await import("@/lib/demo/seed");
+      await seedDemo(db);
     }
   }
 }
@@ -85,4 +122,5 @@ export async function closeDb(): Promise<void> {
   }
   cache.db = undefined;
   cache.pglite = undefined;
+  cache.opening = undefined;
 }
