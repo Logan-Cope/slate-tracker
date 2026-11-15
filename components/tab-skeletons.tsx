@@ -146,7 +146,7 @@ function WeightSkeleton() {
   );
 }
 
-/** Settings' frame while it loads: header and its three cards, with the profile switch when the coach has one. */
+/** Settings' frame while it loads: header and its two cards, with the profile switch when the coach has one. */
 function SettingsSkeleton({ switcher }: SkeletonProps) {
   return (
     <div data-perf="skeleton" role="progressbar" aria-label="Loading" className="pb-8">
@@ -176,12 +176,6 @@ function SettingsSkeleton({ switcher }: SkeletonProps) {
               </div>
             ) : null}
             <Bone className="mt-3 h-12 w-full rounded-xl" />
-          </div>
-        </section>
-
-        <section className="mt-4 px-5">
-          <div className="card flex min-h-14 items-center px-4">
-            <Bone className="h-5 w-24" />
           </div>
         </section>
       </div>
