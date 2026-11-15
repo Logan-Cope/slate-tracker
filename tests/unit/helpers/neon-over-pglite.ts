@@ -65,7 +65,7 @@ export function neonOverPglite(pglite: PGlite, opts: NeonEmulatorOptions = {}): 
   };
 
   neonConfig.fetchFunction = fetchFunction;
-  const db = drizzle(neon("postgresql://emulator:emulator@neon-emulator.invalid/slate"), { schema }) as unknown as Database;
+  const db = drizzle(neon("postgresql://emulator@neon-emulator.invalid/slate"), { schema }) as unknown as Database;
   return { db, requests };
 }
 
