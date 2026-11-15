@@ -47,12 +47,14 @@ npm install
 npm run demo        # http://localhost:3000, tap Avery or Morgan
 ```
 
+The first page load compiles for about 13 seconds; later loads are fast.
+
 `npm run demo` starts the app on an embedded Postgres, seeds 60 days of invented history and answers the label reader from a fixture. For a real deployment, copy `.env.example` to `.env.local` and set `AUTH_SECRET`, `SITE_PASSPHRASE`, `DATABASE_URL` and `ANTHROPIC_API_KEY`.
 
 ## Checks
 
 ```bash
-npm run check       # typecheck, lint, 738 unit tests on in-memory Postgres
+npm run check       # typecheck, lint, the full unit suite on in-memory Postgres
 npm run test:e2e    # 60 Playwright tests on an iPhone viewport, with tap-count budgets
 npm run eval:labels # label reader against 16 synthetic photos (needs ANTHROPIC_API_KEY, about a cent)
 ```

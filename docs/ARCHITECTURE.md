@@ -128,6 +128,6 @@ The private deployment this repo comes from has one more piece that is left out 
 
 | Layer | What | Count |
 |---|---|---|
-| Unit (Vitest) | Pure logic in `lib/`, query functions against in-memory PGlite, route handlers, copy rules | 738 |
+| Unit (Vitest) | Pure logic in `lib/`, query functions against in-memory PGlite, route handlers, copy rules | `npm run test` |
 | End to end (Playwright) | iPhone viewport, tap-count budgets per flow, a synthetic camera for the scanner | 60 |
 | Evals | Label reader, food search, restaurant extraction | see [EVALS.md](EVALS.md) |
