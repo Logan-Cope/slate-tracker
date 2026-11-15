@@ -1,0 +1,34 @@
+# deps
+node_modules/
+
+# next
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# local database (PGlite) and raw USDA downloads
+.data/
+data/*
+!data/README.md
+
+# env
+.env
+.env.*
+!.env.example
+
+# tests
+playwright-report/
+test-results/
+coverage/
+
+# misc
+.DS_Store
+.vercel
+.pw-browsers/
+
+# decoder wasm, copied from node_modules by scripts/copy-wasm.mjs before dev and build
+public/zxing/
+
+CLAUDE.local.md
+.env*.local

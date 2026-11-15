@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* Design tokens. Light is the default. Dark applies when the system prefers it
+   (unless the user picked Light in Settings) or when the user picked Dark. The
+   two dark blocks are identical on purpose: CSS cannot share a rule across a
+   media query and an attribute selector.
+   Text roles: --accent-ink and --protein-ink are a hue used as text on a
+   surface; --on-accent and --on-danger are text on that hue's fill. Every such
+   pair is measured at 4.5:1 or better by tests/unit/contrast.test.ts. */
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f3eee6;
+  --fg: #1c1917;
+  --muted: #6f6863;
+  --line: #e7e2da;
+  --accent: #d2452a;
+  --accent-soft: #fbe7e1;
+  --accent-ink: #8c2e1b;
+  --on-accent: #ffffff;
+  --protein: #0d9488;
+  --protein-soft: #d5f1ec;
+  --protein-ink: #0f766e;
+  --carbs: #b45309;
+  --fat: #6d28d9;
+  --success: #15803d;
+  --danger: #b91c1c;
+  --on-danger: #ffffff;
+  --shadow: 0 1px 2px rgb(28 25 23 / 0.06), 0 8px 24px -12px rgb(28 25 23 / 0.18);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0e0d;
+    --surface: #1a1816;
+    --surface-2: #231f1c;
+    --fg: #f5f2ee;
+    --muted: #9c958d;
+    --line: #2d2926;
+    --accent: #f0654a;
+    --accent-soft: #3a1a12;
+    --accent-ink: #ffb4a2;
+    --on-accent: #0f0e0d;
+    --protein: #2dd4bf;
+    --protein-soft: #10302d;
+    --protein-ink: #2dd4bf;
+    --carbs: #f59e0b;
+    --fat: #a78bfa;
+    --success: #4ade80;
+    --danger: #f87171;
+    --on-danger: #0f0e0d;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f0e0d;
+  --surface: #1a1816;
+  --surface-2: #231f1c;
+  --fg: #f5f2ee;
+  --muted: #9c958d;
+  --line: #2d2926;
+  --accent: #f0654a;
+  --accent-soft: #3a1a12;
+  --accent-ink: #ffb4a2;
+  --on-accent: #0f0e0d;
+  --protein: #2dd4bf;
+  --protein-soft: #10302d;
+  --protein-ink: #2dd4bf;
+  --carbs: #f59e0b;
+  --fat: #a78bfa;
+  --success: #4ade80;
+  --danger: #f87171;
+  --on-danger: #0f0e0d;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-protein: var(--protein);
+  --color-protein-soft: var(--protein-soft);
+  --color-protein-ink: var(--protein-ink);
+  --color-carbs: var(--carbs);
+  --color-fat: var(--fat);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-on-danger: var(--on-danger);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Focused controls scroll clear of the sticky chrome at both edges. The
+   viewport is the page scroller, so the padding lives on html, and :has()
+   scopes each value to the screen whose chrome is on the page (a page with no
+   sticky header gets no top padding). Add food's header measures
+   8 + 44 + 12 + 51 + 10 + 16 + 12 = 153px under the safe area; Active
+   workout's is 64px with a one-line title and 89px with two. Each value leaves
+   room for the 2px focus ring and its offset. At the bottom every page of the
+   shell has the 4.5rem tab bar, and the rest timer, a draft's Add menu footer
+   or the diary's edit bar stacks on top of it while it is mounted. */
+html:has([data-scroll-clearance="add-food"]) {
+  scroll-padding-block-start: calc(env(safe-area-inset-top) + 10rem);
+}
+html:has([data-scroll-clearance="workout"]) {
+  scroll-padding-block-start: calc(env(safe-area-inset-top) + 6rem);
+}
+html {
+  scroll-padding-block-end: calc(env(safe-area-inset-bottom) + 5rem);
+}
+html:has([data-scroll-clearance="rest-timer"], [data-scroll-clearance="draft-footer"], [data-scroll-clearance="edit-bar"]) {
+  scroll-padding-block-end: calc(env(safe-area-inset-bottom) + 10.5rem);
+}
+
+body {
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Shared controls, in the components layer so Tailwind utilities (pl-11, py-2...)
+   can override them. Inputs are 16px+ so iOS does not zoom on focus. */
+@layer components {
+.input {
+  width: 100%;
+  font-size: 1.0625rem;
+  line-height: 1.25;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+}
+.input:focus {
+  border-color: var(--accent);
+}
+.input::placeholder {
+  color: var(--muted);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-xl);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition-property: background-color, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  opacity: 0.55;
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--fg);
+  border-color: var(--line);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--accent-ink);
+}
+/* Press feedback: one scale, 0.96 over 150ms ease-out. A disabled button stays
+   still, whether disabled natively or with aria-disabled (a pending submit), and
+   so does the whole app when the OS asks for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    transition-property: scale, background-color, opacity;
+  }
+  .btn-primary:not(:disabled):not([aria-disabled="true"]):active,
+  .btn-secondary:not(:disabled):not([aria-disabled="true"]):active,
+  .btn-ghost:not(:disabled):not([aria-disabled="true"]):active {
+    scale: 0.96;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow);
+}
+
+.tap {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Keyboard focus is a 2px accent ring with 2px of air, on every control. Accent
+   on surface measures 4.5:1 light and 5.6:1 dark, above the 3:1 floor (every
+   fill a control sits on is measured by tests/unit/contrast.test.ts). A control
+   on an accent, danger or inverted fill swaps the ring for that fill's text
+   color, and a row that fills a clipped card draws the ring inside its own edge
+   (outline-offset -2px) so the rounded corners cannot cut it. Inputs also keep
+   the border color change, which touch focus shows too. */
+.input:focus-visible,
+.tap:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Hide scrollbars on horizontal strips without disabling scroll. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Enter animation for sheets, toasts and badges. Everyone gets the fade; the
+   scale joins it only when the OS allows motion. Lives in the components layer
+   so a utility such as animate-pulse can take over the animation afterwards. */
+.pop {
+  animation: slate-fade 160ms ease-out both;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pop {
+    animation-name: slate-pop;
+  }
+}
+}
+
+@keyframes slate-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slate-pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "restaurant": "Chick-fil-A",
+    "source": "https://www.chick-fil-a.com/menu",
+    "verified": "2026-10-19",
+    "note": "Per-item pages under /menu/entrees/* and /menu/sides/*; fries are the page's default serving, which is the medium.",
+    "items": [
+      {
+        "name": "Chick-fil-A Chicken Sandwich",
+        "kcal": 420,
+        "protein_g": 29
+      },
+      {
+        "name": "Spicy Chicken Sandwich",
+        "kcal": 450,
+        "protein_g": 28
+      },
+      {
+        "name": "Grilled Chicken Sandwich",
+        "kcal": 390,
+        "protein_g": 28
+      },
+      {
+        "name": "Grilled Nuggets",
+        "kcal": 130,
+        "protein_g": 25
+      },
+      {
+        "name": "Waffle Potato Fries",
+        "kcal": 420,
+        "protein_g": 5
+      }
+    ]
+  },
+  {
+    "restaurant": "Chipotle",
+    "source": "https://www.chipotle.com/nutrition-calculator",
+    "verified": "2026-10-19",
+    "note": "Verified 2026-10-19 by the extractor eval reading chipotle.com (5/5 exact).",
+    "items": [
+      {
+        "name": "Chicken",
+        "kcal": 180,
+        "protein_g": 32
+      },
+      {
+        "name": "Steak",
+        "kcal": 150,
+        "protein_g": 21
+      },
+      {
+        "name": "Cilantro-Lime White Rice",
+        "kcal": 210,
+        "protein_g": 4
+      },
+      {
+        "name": "Black Beans",
+        "kcal": 130,
+        "protein_g": 8
+      },
+      {
+        "name": "Guacamole",
+        "kcal": 230,
+        "protein_g": 2
+      }
+    ]
+  },
+  {
+    "restaurant": "Sweetgreen",
+    "source": "https://www.sweetgreen.com/menu",
+    "verified": "2026-10-19",
+    "items": [
+      {
+        "name": "Harvest Bowl",
+        "kcal": 740,
+        "protein_g": 32
+      },
+      {
+        "name": "Kale Caesar",
+        "kcal": 545,
+        "protein_g": 41
+      },
+      {
+        "name": "Crispy Rice Bowl",
+        "kcal": 640,
+        "protein_g": 28
+      },
+      {
+        "name": "Chicken Pesto Parm",
+        "kcal": 525,
+        "protein_g": 35
+      },
+      {
+        "name": "Shroomami",
+        "kcal": 635,
+        "protein_g": 18
+      }
+    ]
+  }
+]

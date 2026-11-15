@@ -1,0 +1,493 @@
+[
+  {
+    "q": "chicken breast",
+    "expect": {
+      "name": "chicken.*breast"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "ground turkey 93",
+    "expect": {
+      "name": "turkey.*ground.*93|ground turkey.*93"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "egg whites",
+    "expect": {
+      "name": "egg.*white"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "greek yogurt",
+    "expect": {
+      "name": "yogurt, greek|greek yogurt"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "chobani greek yogurt",
+    "expect": {
+      "name": "greek|yogurt",
+      "brand": "chobani"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "oikos triple zero",
+    "expect": {
+      "name": "triple zero",
+      "brand": "oikos|danone"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "fairlife milk",
+    "expect": {
+      "brand": "fairlife"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "quest bar",
+    "expect": {
+      "brand": "quest"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "premier protein shake",
+    "expect": {
+      "brand": "premier"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "banana",
+    "expect": {
+      "name": "^bananas?, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "white rice cooked",
+    "expect": {
+      "name": "rice, white.*cooked"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "sweet potato",
+    "expect": {
+      "name": "^sweet potato"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "avocado",
+    "expect": {
+      "name": "^avocados?, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "tilapia",
+    "expect": {
+      "name": "tilapia"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "salmon",
+    "expect": {
+      "name": "salmon"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "broccoli",
+    "expect": {
+      "name": "^broccoli, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "oatmeal",
+    "expect": {
+      "name": "oats|oatmeal"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "peanut butter",
+    "expect": {
+      "name": "^peanut butter"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "jif peanut butter",
+    "expect": {
+      "name": "peanut",
+      "brand": "jif"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "almond butter",
+    "expect": {
+      "name": "almond butter"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "string cheese",
+    "expect": {
+      "name": "string cheese|mozzarella"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "cottage cheese",
+    "expect": {
+      "name": "cheese, cottage|cottage cheese"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "turkey breast deli",
+    "expect": {
+      "name": "turkey.*breast"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "rice cakes",
+    "expect": {
+      "name": "rice cakes?"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "protein powder",
+    "expect": {
+      "brand": "optimum nutrition"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "tortilla",
+    "expect": {
+      "name": "tortilla"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "sourdough bread",
+    "expect": {
+      "name": "sourdough"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "strawberries",
+    "expect": {
+      "name": "^strawberries, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "blueberries",
+    "expect": {
+      "name": "^blueberries, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "honey",
+    "expect": {
+      "name": "^honey$"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "olive oil",
+    "expect": {
+      "name": "oil, olive|olive oil"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "salsa",
+    "expect": {
+      "name": "salsa"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "hummus",
+    "expect": {
+      "name": "^hummus"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "sabra hummus",
+    "expect": {
+      "name": "hummus",
+      "brand": "sabra"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "edamame",
+    "expect": {
+      "name": "edamame"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "shrimp",
+    "expect": {
+      "name": "shrimp"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "lean ground beef 90/10",
+    "expect": {
+      "name": "beef, ground, 90%"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "pickles",
+    "expect": {
+      "name": "pickles?, cucumber"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "siggi's",
+    "expect": {
+      "brand": "siggi"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "kodiak cakes",
+    "expect": {
+      "brand": "kodiak"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "halo top",
+    "expect": {
+      "brand": "halo top"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "built bar",
+    "expect": {
+      "brand": "^built"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "spinach",
+    "expect": {
+      "name": "^spinach, raw"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "almond milk",
+    "expect": {
+      "name": "almond ?milk"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "cauliflower rice",
+    "expect": {
+      "name": "cauliflower"
+    },
+    "tier": "generic"
+  },
+  {
+    "q": "chick fil a sauce",
+    "expect": {
+      "brand": "chick-fil-a"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "chick-fil-a sauce",
+    "expect": {
+      "brand": "chick-fil-a"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "ben and jerrys",
+    "expect": {
+      "brand": "ben & jerry"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "trader joes",
+    "expect": {
+      "brand": "trader joe"
+    },
+    "tier": "branded"
+  },
+  {
+    "q": "chick fil a spicy chicken sandwich",
+    "expect": {
+      "name": "^spicy (deluxe )?sandwich",
+      "brand": "^chick-fil-a$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chick fil a spicy",
+    "expect": {
+      "name": "^spicy (deluxe )?sandwich",
+      "brand": "^chick-fil-a$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chick fil a grilled chicken sandwich",
+    "expect": {
+      "name": "^grilled chicken sandwich",
+      "brand": "^chick-fil-a$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chick fil a grilled nuggets",
+    "expect": {
+      "name": "grilled nuggets",
+      "brand": "^chick-fil-a$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chick fil a waffle fries",
+    "expect": {
+      "name": "^waffle potato fries",
+      "brand": "^chick-fil-a$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chipotle chicken",
+    "expect": {
+      "name": "^chicken$",
+      "brand": "^chipotle$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "chipotle chicken bowl",
+    "expect": {
+      "name": "chicken.*bowl|bowl.*chicken",
+      "brand": "^chipotle$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "starbucks cold brew",
+    "expect": {
+      "name": "cold brew",
+      "brand": "^starbucks$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "starbucks grande latte",
+    "expect": {
+      "name": "caffe latte.*grande",
+      "brand": "^starbucks$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "mcdonalds big mac",
+    "expect": {
+      "name": "^big mac$",
+      "brand": "^mcdonald"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "mcdonalds fries",
+    "expect": {
+      "name": "french fries",
+      "brand": "mcdonald"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "wendys baconator",
+    "expect": {
+      "name": "^baconator$",
+      "brand": "^wendy"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "panera broccoli cheddar soup",
+    "expect": {
+      "name": "^broccoli cheddar soup",
+      "brand": "^panera"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "taco bell crunchwrap",
+    "expect": {
+      "name": "^crunchwrap supreme",
+      "brand": "^taco bell$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "subway turkey 6 inch",
+    "expect": {
+      "name": "^turkey breast, 6 in",
+      "brand": "^subway$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "dunkin glazed donut",
+    "expect": {
+      "name": "^glazed donut",
+      "brand": "^dunkin"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "panda express orange chicken",
+    "expect": {
+      "name": "^orange chicken$",
+      "brand": "^panda express$"
+    },
+    "tier": "restaurant"
+  },
+  {
+    "q": "sweetgreen harvest bowl",
+    "expect": {
+      "name": "harvest bowl",
+      "brand": "^sweetgreen$"
+    },
+    "tier": "restaurant"
+  }
+]

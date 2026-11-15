@@ -1,0 +1,37 @@
+{
+ "rootMainGzKB": 129.1,
+ "routes": {
+  "/today": {
+   "firstLoadGzKB": 165.8,
+   "routeChunksGzKB": 36.7
+  },
+  "/train": {
+   "firstLoadGzKB": 157.6,
+   "routeChunksGzKB": 28.5
+  },
+  "/weight": {
+   "firstLoadGzKB": 256.1,
+   "routeChunksGzKB": 127
+  },
+  "/settings": {
+   "firstLoadGzKB": 148.3,
+   "routeChunksGzKB": 19.3
+  },
+  "/today/add": {
+   "firstLoadGzKB": 170.1,
+   "routeChunksGzKB": 41
+  },
+  "/train/history": {
+   "firstLoadGzKB": 154.1,
+   "routeChunksGzKB": 25
+  },
+  "/coach": {
+   "firstLoadGzKB": 148.2,
+   "routeChunksGzKB": 19.2
+  },
+  "/login": {
+   "firstLoadGzKB": 133.6,
+   "routeChunksGzKB": 4.6
+  }
+ }
+}

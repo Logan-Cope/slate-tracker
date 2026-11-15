@@ -1,0 +1,71 @@
+{
+  "name": "slate-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/copy-wasm.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/copy-wasm.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --import tsx scripts/migrate.ts",
+    "db:seed": "node --import tsx scripts/seed.ts",
+    "db:reset": "rm -rf .data/pglite && npm run db:migrate && npm run db:seed",
+    "fdc:import": "node --import tsx scripts/fdc-import.ts",
+    "menustat:import": "node --import tsx scripts/menustat-import.ts",
+    "eval:search": "node --import tsx scripts/eval-search.ts",
+    "eval:restaurants": "node --import tsx scripts/eval-restaurants.ts",
+    "eval:labels": "node --import tsx scripts/eval-labels.ts",
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "eval:labels:render": "node scripts/make-eval-labels.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "@electric-sql/pglite": "^0.5.9",
+    "@neondatabase/serverless": "^1.2.0",
+    "@tanstack/react-query": "^5.104.2",
+    "date-fns": "^4.4.0",
+    "drizzle-orm": "^0.45.4",
+    "lucide-react": "^1.55.0",
+    "next": "^16.4.3",
+    "next-auth": "5.0.0-beta.32",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15",
+    "zxing-wasm": "^3.1.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "csv-parse": "^7.0.3",
+    "dotenv": "^18.0.7",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^10.12.0",
+    "eslint-config-next": "^16.4.3",
+    "postgres": "^3.4.9",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=20.9"
+  },
+  "overrides": {
+    "@vercel/cli-config": {
+      "zod": "$zod"
+    }
+  }
+}

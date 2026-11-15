@@ -1,0 +1,238 @@
+[
+  {
+    "id": "syn-01-oat-clusters",
+    "file": "labels/syn-01-oat-clusters.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "2/3 cup",
+      "servingGrams": 55,
+      "kcal": 230,
+      "proteinG": 3,
+      "carbsG": 37,
+      "fatG": 8,
+      "fiberG": 4
+    },
+    "note": "Clean, straight, standard vertical panel"
+  },
+  {
+    "id": "syn-02-trail-mix-dual-column",
+    "file": "labels/syn-02-trail-mix-dual-column.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1/4 cup",
+      "servingGrams": 30,
+      "kcal": 160,
+      "proteinG": 5,
+      "carbsG": 14,
+      "fatG": 10,
+      "fiberG": 2
+    },
+    "note": "Dual column, per serving and per container; must take per serving"
+  },
+  {
+    "id": "syn-03-fruit-cup-less-than-1g",
+    "file": "labels/syn-03-fruit-cup-less-than-1g.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 cup",
+      "servingGrams": 113,
+      "kcal": 70,
+      "proteinG": 0,
+      "carbsG": 17,
+      "fatG": 0,
+      "fiberG": 1
+    },
+    "note": "Protein printed as <1g reads as 0; warm light, tilted"
+  },
+  {
+    "id": "syn-04-granola-bar-linear",
+    "file": "labels/syn-04-granola-bar-linear.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 bar",
+      "servingGrams": 40,
+      "kcal": 180,
+      "proteinG": 4,
+      "carbsG": 26,
+      "fatG": 7,
+      "fiberG": 3
+    },
+    "note": "Linear run-in format for small packages, seen at an angle"
+  },
+  {
+    "id": "syn-05-yogurt-tabular",
+    "file": "labels/syn-05-yogurt-tabular.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 container",
+      "servingGrams": 150,
+      "kcal": 120,
+      "proteinG": 15,
+      "carbsG": 9,
+      "fatG": 2.5,
+      "fiberG": 0
+    },
+    "note": "Tabular (horizontal) format, photographed sideways"
+  },
+  {
+    "id": "syn-06-crackers-per-100g-and-portion",
+    "file": "labels/syn-06-crackers-per-100g-and-portion.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "per portion",
+      "servingGrams": 30,
+      "kcal": 133,
+      "proteinG": 2.9,
+      "carbsG": 17.4,
+      "fatG": 5.6,
+      "fiberG": 1.3
+    },
+    "accept": {
+      "servingLabel": [
+        "portion",
+        "1 portion",
+        "30g",
+        "30 g"
+      ]
+    },
+    "note": "European panel: per 100 g beside per portion, comma decimals, kJ before kcal; must take the portion"
+  },
+  {
+    "id": "syn-07-nut-butter-dark-pack",
+    "file": "labels/syn-07-nut-butter-dark-pack.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "2 tbsp",
+      "servingGrams": 32,
+      "kcal": 190,
+      "proteinG": 8,
+      "carbsG": 7,
+      "fatG": 16,
+      "fiberG": 2
+    },
+    "note": "Light text on dark packaging, dim and slightly soft"
+  },
+  {
+    "id": "syn-08-protein-powder-angle",
+    "file": "labels/syn-08-protein-powder-angle.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 scoop",
+      "servingGrams": 31,
+      "kcal": 120,
+      "proteinG": 24,
+      "carbsG": 3,
+      "fatG": 1.5,
+      "fiberG": 1
+    },
+    "note": "Strong perspective from the side"
+  },
+  {
+    "id": "syn-09-soup-glare",
+    "file": "labels/syn-09-soup-glare.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 cup",
+      "servingGrams": 245,
+      "kcal": 90,
+      "proteinG": 4,
+      "carbsG": 15,
+      "fatG": 2,
+      "fiberG": 3
+    },
+    "note": "A band of glare across the panel"
+  },
+  {
+    "id": "syn-10-bar-bilingual",
+    "file": "labels/syn-10-bar-bilingual.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 bar",
+      "servingGrams": 40,
+      "kcal": 170,
+      "proteinG": 5,
+      "carbsG": 25,
+      "fatG": 6,
+      "fiberG": 3
+    },
+    "accept": {
+      "servingLabel": [
+        "per 1 bar",
+        "1 barre",
+        "40g",
+        "40 g"
+      ]
+    },
+    "note": "Bilingual English and French panel, the serving given as Per 1 bar"
+  },
+  {
+    "id": "syn-11-pasta-sauce-curved-jar",
+    "file": "labels/syn-11-pasta-sauce-curved-jar.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1/2 cup",
+      "servingGrams": 125,
+      "kcal": 70,
+      "proteinG": 2,
+      "carbsG": 11,
+      "fatG": 2.5,
+      "fiberG": 2
+    },
+    "note": "Squeezed and turned the way a label on a round jar photographs"
+  },
+  {
+    "id": "syn-12-chips-low-quality",
+    "file": "labels/syn-12-chips-low-quality.jpg",
+    "kind": "label",
+    "source": "synthetic",
+    "truth": {
+      "servingLabel": "1 oz",
+      "servingGrams": 28,
+      "kcal": 150,
+      "proteinG": 2,
+      "carbsG": 15,
+      "fatG": 9,
+      "fiberG": 1
+    },
+    "note": "Small, heavily compressed photo; the gram weight shares the parentheses with a piece count"
+  },
+  {
+    "id": "syn-neg-ingredients-only",
+    "file": "labels/syn-neg-ingredients-only.jpg",
+    "kind": "negative",
+    "source": "synthetic",
+    "note": "Ingredients panel, no nutrition facts"
+  },
+  {
+    "id": "syn-neg-too-blurry",
+    "file": "labels/syn-neg-too-blurry.jpg",
+    "kind": "negative",
+    "source": "synthetic",
+    "note": "A real panel, too blurred to read any number"
+  },
+  {
+    "id": "syn-neg-cut-off",
+    "file": "labels/syn-neg-cut-off.jpg",
+    "kind": "negative",
+    "source": "synthetic",
+    "note": "Only the title and serving size are in frame; no calories or macros visible"
+  },
+  {
+    "id": "syn-neg-shopping-list",
+    "file": "labels/syn-neg-shopping-list.jpg",
+    "kind": "negative",
+    "source": "synthetic",
+    "note": "A handwritten shopping list, not a label"
+  }
+]
